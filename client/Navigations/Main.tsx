@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import Tabs from "./Tabs";
+import Tabs from './Tabs';
 
 type Props = {};
 

@@ -1,14 +1,14 @@
-import { View, Text } from 'react-native'
-import React from 'react'
+import {View, Text} from 'react-native';
+import React from 'react';
 
-type Props = {}
+type Props = {};
 
 const HomeScreen = (props: Props) => {
   return (
-    <View>
-      <Text>HomeScreen</Text>
+    <View className="flex-[1] items-center justify-center">
+      <Text>Home</Text>
     </View>
-  )
-}
+  );
+};
 
-export default HomeScreen
+export default HomeScreen;

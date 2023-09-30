@@ -1,26 +1,25 @@
 import * as React from 'react';
-import {NavigationContainer} from '@react-navigation/native';
-import Main from "./Navigations/Main";
-import Auth from "./Navigations/Auth";
+import {
+  DarkTheme,
+  DefaultTheme,
+  NavigationContainer,
+} from '@react-navigation/native';
+import Main from './Navigations/Main';
+import Auth from './Navigations/Auth';
+import {useColorScheme} from 'nativewind';
 
 function App() {
   const [isLogin, setIsLogin] = React.useState(false);
+  const scheme = useColorScheme();
 
   return (
-<>
- {
-  isLogin ? (
-    <NavigationContainer>
-    <Main />
-  </NavigationContainer>
-  ) : (
-    <NavigationContainer>
-     <Auth />
-  </NavigationContainer>
-  )
- }
-</>
+    <NavigationContainer
+      theme={scheme.colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+      {isLogin ? <Main /> : <Auth />}
+    </NavigationContainer>
   );
 }
 
 export default App;
+
+// 26:38
