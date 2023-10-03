@@ -17,7 +17,7 @@ export const MyButton = ({variant, children, ...props}: ButtonProps) => {
   return (
     <StyledTouchableOpacity
       className={
-        `flex justify-center items-center h-9 rounded-lg bg-${theme[variant]} ` +
+        ` flex justify-center items-center h-9 rounded-lg bg-${theme[variant]} ` +
         props.className
       }
       {...props}>

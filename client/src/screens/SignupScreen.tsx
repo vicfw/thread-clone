@@ -13,7 +13,7 @@ import {
 import {useEffect, useState} from 'react';
 import {RootStackScreenProps} from '../../types';
 import {MyButton} from '../components/ui/Button/Button';
-// import ImagePicker, {ImageOrVideo} from 'react-native-image-crop-picker';
+import ImagePicker from 'react-native-image-crop-picker';
 // import {useDispatch, useSelector} from 'react-redux';
 // import {loadUser, registerUser} from '../../redux/actions/userAction';
 
@@ -38,18 +38,21 @@ const SignupScreen = ({navigation}: RootStackScreenProps<'Signup'>) => {
   //   }
   // }, [error, isAuthenticated]);
 
-  const uploadImage = () => {
-    // ImagePicker.openPicker({
-    //   width: 300,
-    //   height: 300,
-    //   cropping: true,
-    //   compressImageQuality: 0.8,
-    //   includeBase64: true,
-    // }).then((image: ImageOrVideo | null) => {
-    //   if (image) {
-    //     setAvatar('data:image/jpeg;base64,' + image.data);
-    //   }
-    // });
+  const uploadImage = async () => {
+    const image = await ImagePicker.openPicker({
+      width: 300,
+      height: 300,
+      cropping: true,
+      compressImageQuality: 0.8,
+      includeBase64: true,
+    });
+
+    console.log(image, 'image');
+
+    if (image) {
+      // @ts-ignore
+      setAvatar('data:image/jpeg;base64,' + image.data);
+    }
   };
 
   const submitHandler = (e: GestureResponderEvent) => {
