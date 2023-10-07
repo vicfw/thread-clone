@@ -8,6 +8,8 @@ import { useFonts } from "expo-font";
 import { Slot, SplashScreen, router } from "expo-router";
 import { useEffect } from "react";
 import { useColorScheme } from "react-native";
+import { Provider, useSelector } from "react-redux";
+import Store from "../redux/Store";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -42,21 +44,23 @@ export default function RootLayout() {
 
   return (
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-      <InitialRoute />
+      <Provider store={Store}>
+        <InitialRoute />
+      </Provider>
     </ThemeProvider>
   );
 }
 
 const InitialRoute = () => {
-  const isLoggedIn = true;
+  const { isAuthenticated } = useSelector((state: any) => state.user);
 
   useEffect(() => {
-    if (isLoggedIn) {
+    if (isAuthenticated) {
       router.push("/home");
     } else {
-      router.push("/register");
+      router.push("/login");
     }
-  }, [isLoggedIn]);
+  }, [isAuthenticated]);
 
   return <Slot />;
 };
