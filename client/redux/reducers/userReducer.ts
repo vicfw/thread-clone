@@ -1,6 +1,6 @@
 import { createReducer } from "@reduxjs/toolkit";
 
-const intialState = {
+const initialState = {
   isAuthenticated: false,
   loading: false,
   isLoading: false,
@@ -10,7 +10,7 @@ const intialState = {
   error: null,
 };
 
-export const userReducer = createReducer(intialState, {
+export const userReducer = createReducer(initialState, {
   userRegisterRequest: (state) => {
     state.loading = true;
     state.isAuthenticated = false;
@@ -40,7 +40,6 @@ export const userReducer = createReducer(intialState, {
     state.isAuthenticated = false;
   },
   userLoginRequest: (state) => {
-    state.isAuthenticated = false;
     state.loading = true;
   },
   userLoginSuccess: (state, action) => {

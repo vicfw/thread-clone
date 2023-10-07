@@ -8,8 +8,10 @@ import { useFonts } from "expo-font";
 import { Slot, SplashScreen, router } from "expo-router";
 import { useEffect } from "react";
 import { useColorScheme } from "react-native";
-import { Provider, useSelector } from "react-redux";
-import Store from "../redux/Store";
+import { Provider, useDispatch, useSelector } from "react-redux";
+import Store, { RootState } from "../redux/Store";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { loadUser } from "../redux/actions/userAction";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -32,12 +34,6 @@ export default function RootLayout() {
     if (error) throw error;
   }, [error]);
 
-  useEffect(() => {
-    if (loaded) {
-      SplashScreen.hideAsync();
-    }
-  }, [loaded]);
-
   if (!loaded) {
     return null;
   }
@@ -52,15 +48,30 @@ export default function RootLayout() {
 }
 
 const InitialRoute = () => {
-  const { isAuthenticated } = useSelector((state: any) => state.user);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    if (isAuthenticated) {
-      router.push("/home");
-    } else {
-      router.push("/login");
-    }
-  }, [isAuthenticated]);
+    console.log("use Effect ran");
+
+    (async () => {
+      try {
+        // await AsyncStorage.clear();
+        const storageToken = await AsyncStorage.getItem("token");
+        console.log(storageToken, "storageToken");
+
+        if (!storageToken) {
+          router.push("/login");
+          SplashScreen.hideAsync();
+        } else {
+          await loadUser()(dispatch);
+          router.push("/home");
+          SplashScreen.hideAsync();
+        }
+      } catch (e) {}
+    })();
+  }, []);
 
   return <Slot />;
 };
+
+// 1:56

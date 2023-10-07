@@ -21,6 +21,8 @@ export const registerUser =
         config
       );
 
+      console.log(data, "data");
+
       dispatch({
         type: "userRegisterSuccess",
         payload: data.user,
@@ -44,6 +46,7 @@ export const loadUser = () => async (dispatch: Dispatch<any>) => {
     });
 
     const token = await AsyncStorage.getItem("token");
+    console.log(`${baseUrl}/me`, "`${baseUrl}/me`");
 
     const { data } = await axios.get(`${baseUrl}/me`, {
       headers: { Authorization: `Bearer ${token}` },
@@ -87,6 +90,8 @@ export const loginUser =
         await AsyncStorage.setItem("token", data.token);
       }
     } catch (error: any) {
+      console.log(error);
+
       dispatch({
         type: "userLoginFailed",
         payload: error.response.data.message,

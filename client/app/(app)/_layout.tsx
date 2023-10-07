@@ -1,6 +1,8 @@
 import { Tabs } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import { Pressable } from "react-native";
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux/Store";
 
 export const LogoutButton = () => {
   return (
@@ -11,13 +13,15 @@ export const LogoutButton = () => {
 };
 
 const TabsPage = () => {
-  const isSignedIn = false;
+  const { isAuthenticated } = useSelector((state: RootState) => state.user);
+  console.log(isAuthenticated, "isAuthenticated");
 
   return (
     <Tabs
       screenOptions={{
+        tabBarActiveTintColor: "black",
         headerStyle: {
-          backgroundColor: "#6c47ff",
+          backgroundColor: "#000",
         },
         headerTintColor: "#fff",
       }}
@@ -26,24 +30,61 @@ const TabsPage = () => {
         name="home"
         options={{
           headerTitle: "Home",
-          tabBarIcon: ({ color, size }) => (
+
+          tabBarIcon: ({ color, size, focused }) => (
             <Ionicons name="home-outline" size={size} color={color} />
           ),
           tabBarLabel: "Home",
         }}
-        redirect={!isSignedIn}
+        redirect={!isAuthenticated}
+      />
+      <Tabs.Screen
+        name="search"
+        options={{
+          headerTitle: "search",
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="search-outline" size={size} color={color} />
+          ),
+          tabBarLabel: "Search",
+          headerRight: () => <LogoutButton />,
+        }}
+        redirect={!isAuthenticated}
+      />
+      <Tabs.Screen
+        name="post"
+        options={{
+          headerTitle: "post",
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="add-circle-outline" size={size} color={color} />
+          ),
+          tabBarLabel: "Post",
+          headerRight: () => <LogoutButton />,
+        }}
+        redirect={!isAuthenticated}
+      />
+      <Tabs.Screen
+        name="notifications"
+        options={{
+          headerTitle: "Notifications",
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="alarm-outline" size={size} color={color} />
+          ),
+          tabBarLabel: "Notifications",
+          headerRight: () => <LogoutButton />,
+        }}
+        redirect={!isAuthenticated}
       />
       <Tabs.Screen
         name="profile"
         options={{
-          headerTitle: "My Profile",
+          headerTitle: "Profile",
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="person-outline" size={size} color={color} />
           ),
-          tabBarLabel: "My Profile",
+          tabBarLabel: "Profile",
           headerRight: () => <LogoutButton />,
         }}
-        redirect={!isSignedIn}
+        redirect={!isAuthenticated}
       />
     </Tabs>
   );

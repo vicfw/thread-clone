@@ -13,6 +13,7 @@ import {
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { loadUser, registerUser } from "../../redux/actions/userAction";
+import { RootState } from "../../redux/Store";
 
 const SignUpScreen = () => {
   const [email, setEmail] = useState("");
@@ -20,7 +21,9 @@ const SignUpScreen = () => {
   const [password, setPassword] = useState("");
   const [avatar, setAvatar] = useState("");
   const dispatch = useDispatch();
-  const { error, isAuthenticated } = useSelector((state: any) => state.user);
+  const { error, isAuthenticated } = useSelector(
+    (state: RootState) => state.user
+  );
 
   useEffect(() => {
     if (error) {

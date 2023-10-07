@@ -11,13 +11,12 @@ import React, { useEffect, useState } from "react";
 import { router } from "expo-router";
 import { loadUser, loginUser } from "../../redux/actions/userAction";
 import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../redux/Store";
 
-type Props = {
-  navigation: any;
-};
-
-const LoginScreen = ({ navigation }: Props) => {
-  const { error, isAuthenticated } = useSelector((state: any) => state.user);
+const LoginScreen = () => {
+  const { error, isAuthenticated } = useSelector(
+    (state: RootState) => state.user
+  );
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
@@ -44,6 +43,7 @@ const LoginScreen = ({ navigation }: Props) => {
       } else {
         Alert.alert("Login successful!");
       }
+      router.replace("/home");
     }
   }, [isAuthenticated, error]);
 
