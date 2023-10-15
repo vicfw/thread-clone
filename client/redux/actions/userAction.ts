@@ -46,7 +46,6 @@ export const loadUser = () => async (dispatch: Dispatch<any>) => {
     });
 
     const token = await AsyncStorage.getItem("token");
-    console.log(`${baseUrl}/me`, "`${baseUrl}/me`");
 
     const { data } = await axios.get(`${baseUrl}/me`, {
       headers: { Authorization: `Bearer ${token}` },
@@ -60,6 +59,8 @@ export const loadUser = () => async (dispatch: Dispatch<any>) => {
       },
     });
   } catch (error: any) {
+    console.log(error, "e");
+
     dispatch({
       type: "userLoadFailed",
       payload: error.response.data.message,
@@ -106,7 +107,7 @@ export const logoutUser = () => async (dispatch: Dispatch<any>) => {
       type: "userLogoutRequest",
     });
 
-    await AsyncStorage.setItem("token", "");
+    await AsyncStorage.removeItem("token");
 
     dispatch({
       type: "userLogoutSuccess",

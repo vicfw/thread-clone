@@ -1,6 +1,7 @@
 import axios from "axios";
 import { Dispatch } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { baseUrl } from "../../constants/URL";
 
 // create post
 export const createPostAction =
@@ -19,7 +20,7 @@ export const createPostAction =
       const token = await AsyncStorage.getItem("token");
 
       const { data } = await axios.post(
-        `${URL}/create-post`,
+        `${baseUrl}/create-post`,
         { title, image, user, replies },
         {
           headers: {
@@ -27,6 +28,7 @@ export const createPostAction =
           },
         }
       );
+
       dispatch({
         type: "postCreateSuccess",
         payload: data.user,
@@ -48,7 +50,7 @@ export const getAllPosts = () => async (dispatch: Dispatch<any>) => {
 
     const token = await AsyncStorage.getItem("token");
 
-    const { data } = await axios.get(`${URL}/get-all-posts`, {
+    const { data } = await axios.get(`${baseUrl}/get-all-posts`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -105,7 +107,7 @@ export const addLikes =
       });
 
       await axios.put(
-        `${URL}/update-likes`,
+        `${baseUrl}/update-likes`,
         { postId },
         {
           headers: {
@@ -141,7 +143,7 @@ export const removeLikes =
       });
 
       await axios.put(
-        `${URL}/update-likes`,
+        `${baseUrl}/update-likes`,
         { postId },
         {
           headers: {
@@ -188,7 +190,7 @@ export const addLikesToReply =
       });
 
       await axios.put(
-        `${URL}/update-replies-react`,
+        `${baseUrl}/update-replies-react`,
         { postId, replyId, replyTitle: title },
         {
           headers: {
@@ -232,7 +234,7 @@ export const removeLikesFromReply =
       });
 
       await axios.put(
-        `${URL}/update-replies-react`,
+        `${baseUrl}/update-replies-react`,
         { postId, replyId },
         {
           headers: {
@@ -287,7 +289,7 @@ export const addLikesToRepliesReply =
         payload: updatedPosts,
       });
       await axios.put(
-        `${URL}/update-reply-react`,
+        `${baseUrl}/update-reply-react`,
         { postId, replyId, singleReplyId, replyTitle: title },
         {
           headers: {
@@ -338,7 +340,7 @@ export const removeLikesFromRepliesReply =
       });
 
       await axios.put(
-        `${URL}/update-reply-react`,
+        `${baseUrl}/update-reply-react`,
         { postId, replyId, singleReplyId },
         {
           headers: {

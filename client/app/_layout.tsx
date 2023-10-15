@@ -12,11 +12,17 @@ import { Provider, useDispatch, useSelector } from "react-redux";
 import Store, { RootState } from "../redux/Store";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { loadUser } from "../redux/actions/userAction";
+import { SafeAreaProvider } from "react-native-safe-area-context";
+import { NativeWindStyleSheet } from "nativewind";
 
 export {
   // Catch any errors thrown by the Layout component.
   ErrorBoundary,
 } from "expo-router";
+
+NativeWindStyleSheet.setOutput({
+  default: "native",
+});
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -51,13 +57,10 @@ const InitialRoute = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log("use Effect ran");
-
     (async () => {
       try {
         // await AsyncStorage.clear();
         const storageToken = await AsyncStorage.getItem("token");
-        console.log(storageToken, "storageToken");
 
         if (!storageToken) {
           router.push("/login");
@@ -71,7 +74,11 @@ const InitialRoute = () => {
     })();
   }, []);
 
-  return <Slot />;
+  return (
+    <SafeAreaProvider>
+      <Slot />
+    </SafeAreaProvider>
+  );
 };
 
-// 1:56
+// 2:49

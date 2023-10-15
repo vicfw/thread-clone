@@ -20,10 +20,7 @@ const TabsPage = () => {
     <Tabs
       screenOptions={{
         tabBarActiveTintColor: "black",
-        headerStyle: {
-          backgroundColor: "#000",
-        },
-        headerTintColor: "#fff",
+        headerShown: false,
       }}
     >
       <Tabs.Screen

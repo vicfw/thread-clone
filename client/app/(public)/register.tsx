@@ -39,18 +39,7 @@ const SignUpScreen = () => {
   }, [error, isAuthenticated]);
 
   const uploadImage = async () => {
-    // ImagePicker.openPicker({
-    //   width: 300,
-    //   height: 300,
-    //   cropping: true,
-    //   compressImageQuality: 0.8,
-    //   includeBase64: true,
-    // }).then((image: ImageOrVideo | null) => {
-    //   if (image) {
-    //     setAvatar("data:image/jpeg;base64," + image.data);
-    //   }
-    // });
-    // No permissions request is necessary for launching the image library
+
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: false,

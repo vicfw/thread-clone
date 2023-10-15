@@ -16,14 +16,20 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: [true, "Please enter your password"],
     },
+    bio: {
+      type: String,
+    },
+    userName: {
+      type: String,
+    },
     avatar: {
       public_id: {
         type: String,
-        required: [true,"Please upload one profile picture!"],
+        required: [true, "Please upload one profile picture!"],
       },
       url: {
         type: String,
-        required: [true,"Please upload one profile picture!"],
+        required: [true, "Please upload one profile picture!"],
       },
     },
     followers: [

@@ -1,6 +1,7 @@
 import axios from "axios";
 import { Dispatch } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { baseUrl } from "../../constants/URL";
 
 // get notifications
 export const getNotifications = () => async (dispatch: Dispatch<any>) => {
@@ -11,7 +12,7 @@ export const getNotifications = () => async (dispatch: Dispatch<any>) => {
 
     const token = await AsyncStorage.getItem("token");
 
-    const { data } = await axios.get(`${URL}/get-notifications`, {
+    const { data } = await axios.get(`${baseUrl}/get-notifications`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
